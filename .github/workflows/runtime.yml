@@ -26,9 +26,13 @@ jobs:
         run: go get -u -v -t ./...
       - name: Test
         run: go test -v -cover ./...
-  # https://github.com/charlesw/tesseract/wiki/Compiling-Tesseract-and-Libleptonica-(using-vcpkg)
   windows:
+    # https://github.com/charlesw/tesseract/wiki/Compiling-Tesseract-and-Libleptonica-(using-vcpkg)
+    # https://stackoverflow.com/questions/50951283/tesseract-install-using-vcpkg-in-windows-10
+    # https://stackoverflow.com/questions/50658953/install-tesseract-for-c-on-windows-10/50662383
     runs-on: windows-latest
+    env:
+      GO111MODULE: "on"
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -36,19 +40,12 @@ jobs:
         uses: actions/setup-go@v2
         with:
           go-version: '1.14'
-      - name: image libs
-        run: |
-          vcpkg install giflib:x86-windows-static libjpeg-turbo:x86-windows-static liblzma:x86-windows-static libpng:x86-windows-static tiff:x86-windows-static zlib:x86-windows-static
-      - name: Leptonica
-        run: |
-          git clone https://github.com/DanBloomberg/leptonica.git
-          cd leptonica
-          git checkout -b 1.78.0 1.78.0
-          mkdir vs16-x86
-          cd vs16-x86
-          mkdir ..\..\build\x86
-          cmake .. -G "Visual Studio 16 2019" -A Win32 -DCMAKE_TOOLCHAIN_FILE=%VCPKG_HOME%\scripts\buildsystems\vcpkg.cmake -DVCPKG_TARGET_TRIPLET=x86-windows-static -DCMAKE_INSTALL_PREFIX=..\..\build\x86
-          cmake --build . --config Release --target install
+      - name: Install tesseract for x86
+        run: vcpkg install tesseract:x86-windows
+      - name: Install tesseract for x64
+        run: vcpkg install tesseract:x64-windows
+      - name: Test
+        run: go test -v -cover ./...
   test:
     runs-on: ubuntu-latest
     strategy:
