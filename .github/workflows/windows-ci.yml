@@ -20,8 +20,16 @@ jobs:
       uses: actions/setup-go@v3
       with:
         go-version: 1.18
+    - name: Search packages
+      run: |
+        vcpkg search tesseract
+        vcpkg search leptonica
     - name: Install Tesseract
       run: |
+        vcpkg install leptonica:x64-windows --head
         vcpkg install tesseract:x64-windows --head
+    - name: Check installation
+      run: dir C:\vcpkg
     - name: Test Gosseract
       run: go test -v -cover ./...
+
