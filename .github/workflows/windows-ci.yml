@@ -29,10 +29,11 @@ jobs:
         vcpkg search leptonica
     - name: Install Tesseract
       run: |
-        vcpkg install leptonica:x64-windows --head
         vcpkg install tesseract:x64-windows --head
     - name: Check installation
-      run: dir C:\vcpkg
+      run: |
+        dir C:\vcpkg
+        dir C:\vcpkg\installed\x64-windows
     - name: Test Gosseract
-      run: go test -v -cover ./...
-
+      run: |
+        INCLUDE=%INCLUDE%;C:\vcpkg\installed\x64-windows\include go test -v -cover ./...
