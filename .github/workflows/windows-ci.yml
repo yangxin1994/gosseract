@@ -32,8 +32,9 @@ jobs:
         vcpkg install tesseract:x64-windows --head
     - name: Check installation
       run: |
-        dir C:\vcpkg
-        dir C:\vcpkg\installed\x64-windows
+        dir C:\vcpkg\installed\x64-windows\include
+        dir C:\vcpkg\installed\x64-windows\lib
     - name: Test Gosseract
       run: |
-        INCLUDE=%INCLUDE%;C:\vcpkg\installed\x64-windows\include go test -v -cover ./...
+        INCLUDE=$INCLUDE;C:\vcpkg\installed\x64-windows\include
+        go test -v -cover ./...
