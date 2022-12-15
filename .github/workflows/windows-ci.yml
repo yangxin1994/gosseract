@@ -36,5 +36,5 @@ jobs:
         dir C:\vcpkg\installed\x64-windows\lib
     - name: Test Gosseract
       run: |
-        INCLUDE=$INCLUDE;C:\vcpkg\installed\x64-windows\include
+        SET INCLUDE=%INCLUDE%;C:\vcpkg\installed\x64-windows\include
         go test -v -cover ./...
