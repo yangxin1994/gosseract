@@ -36,6 +36,9 @@ jobs:
     - name: Debug_F
       run: |
         Get-ChildItem Env:
+      env:
+        FOO: "hello_hello"
+        INCLUDE: C:\vcpkg\installed\x64-windows\include
 
     # - name: Install Tesseract
     #   run: |
