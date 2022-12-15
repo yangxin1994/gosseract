@@ -27,14 +27,24 @@ jobs:
       run: |
         vcpkg search tesseract
         vcpkg search leptonica
-    - name: Install Tesseract
+    - name: Debug_1
       run: |
-        vcpkg install tesseract:x64-windows --head
-    - name: Check installation
+        SET
+    - name: Debug_2
       run: |
-        dir C:\vcpkg\installed\x64-windows\include
-        dir C:\vcpkg\installed\x64-windows\lib
-    - name: Test Gosseract
+        SET INCLUDE="%INCLUDE%;C:\vcpkg\installed\x64-windows\include"
+    - name: Debug_F
       run: |
-        SET INCLUDE=%INCLUDE%;C:\vcpkg\installed\x64-windows\include
-        go test -v -cover ./...
+        SET
+
+    # - name: Install Tesseract
+    #   run: |
+    #     vcpkg install tesseract:x64-windows --head
+    # - name: Check installation
+    #   run: |
+    #     dir C:\vcpkg\installed\x64-windows\include
+    #     dir C:\vcpkg\installed\x64-windows\lib
+    # - name: Test Gosseract
+    #   run: |
+    #     SET INCLUDE="%INCLUDE%;C:\vcpkg\installed\x64-windows\include"
+    #     go test -v -cover ./...
