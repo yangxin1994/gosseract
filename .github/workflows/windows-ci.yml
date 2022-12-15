@@ -27,6 +27,7 @@ jobs:
     #   run: Get-ChildItem Env:
     - name: Install Leptonica
       run: |
+        vcpkg install openjp2
         vcpkg install leptonica:x64-windows --head
     - name: Install Tesseract
       run: |
