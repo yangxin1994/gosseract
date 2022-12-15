@@ -28,9 +28,12 @@ jobs:
     - name: Install Leptonica
       run: |
         vcpkg install openjp2
+        vcpkg install openjp2:x64-windows
+        vcpkg install leptonica
         vcpkg install leptonica:x64-windows --head
     - name: Install Tesseract
       run: |
+        vcpkg install tesseract
         vcpkg install tesseract:x64-windows --head
     - name: Check installation
       run: |
