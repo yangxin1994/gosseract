@@ -17,37 +17,23 @@ jobs:
     runs-on: windows-latest
     name: Windows Test
     steps:
-    # - name: Checkout
-    #   uses: actions/checkout@v3
-    # - name: Setup Go
-    #   uses: actions/setup-go@v3
-    #   with:
-    #     go-version: 1.18
-    # - name: Search packages
-    #   run: |
-    #     vcpkg search tesseract
-    #     vcpkg search leptonica
-    - name: Debug_1
+    - name: Checkout
+      uses: actions/checkout@v3
+    - name: Setup Go
+      uses: actions/setup-go@v3
+      with:
+        go-version: 1.18
+    # - name: Env Check
+    #   run: Get-ChildItem Env:
+    - name: Install Tesseract
       run: |
-        Get-ChildItem Env:
-    - name: Debug_2
+        vcpkg install tesseract:x64-windows --head
+    - name: Check installation
       run: |
-        [Environment]::SetEnvironmentVariable("INCLUDE", "C:\vcpkg\installed\x64-windows\include", "Machine")
-    - name: Debug_F
+        dir C:\vcpkg\installed\x64-windows\include
+        dir C:\vcpkg\installed\x64-windows\lib
+    - name: Test Gosseract
       run: |
-        Get-ChildItem Env:
+        go test -v -cover ./...
       env:
-        FOO: "hello_hello"
         INCLUDE: C:\vcpkg\installed\x64-windows\include
-
-    # - name: Install Tesseract
-    #   run: |
-    #     vcpkg install tesseract:x64-windows --head
-    # - name: Check installation
-    #   run: |
-    #     dir C:\vcpkg\installed\x64-windows\include
-    #     dir C:\vcpkg\installed\x64-windows\lib
-    # - name: Test Gosseract
-    #   run: |
-    #     SET INCLUDE="%INCLUDE%;C:\vcpkg\installed\x64-windows\include"
-    #     go test -v -cover ./...
