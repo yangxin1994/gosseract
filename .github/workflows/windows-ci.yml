@@ -17,22 +17,22 @@ jobs:
     runs-on: windows-latest
     name: Windows Test
     steps:
-    - name: Checkout
-      uses: actions/checkout@v3
-    - name: Setup Go
-      uses: actions/setup-go@v3
-      with:
-        go-version: 1.18
-    - name: Search packages
-      run: |
-        vcpkg search tesseract
-        vcpkg search leptonica
+    # - name: Checkout
+    #   uses: actions/checkout@v3
+    # - name: Setup Go
+    #   uses: actions/setup-go@v3
+    #   with:
+    #     go-version: 1.18
+    # - name: Search packages
+    #   run: |
+    #     vcpkg search tesseract
+    #     vcpkg search leptonica
     - name: Debug_1
       run: |
         Get-ChildItem Env:
     - name: Debug_2
       run: |
-        SET INCLUDE="%INCLUDE%;C:\vcpkg\installed\x64-windows\include"
+        $Env:INCLUDE += ';C:\vcpkg\installed\x64-windows\include'
     - name: Debug_F
       run: |
         Get-ChildItem Env:
