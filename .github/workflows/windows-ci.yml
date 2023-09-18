@@ -25,6 +25,8 @@ jobs:
         go-version: 1.18
     # - name: Env Check
     #   run: Get-ChildItem Env:
+    - name: Vcpkg setup
+      run: vcpkg integrate install
     - name: Install Leptonica
       run: |
         vcpkg install openjp2
