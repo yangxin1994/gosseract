@@ -27,15 +27,14 @@ jobs:
     #   run: Get-ChildItem Env:
     - name: Vcpkg setup
       run: vcpkg integrate install
+    - name: Install Openjp2
+      run: |
+        vcpkg install openjp2:x64-windows
     - name: Install Leptonica
       run: |
-        vcpkg install openjp2
-        vcpkg install openjp2:x64-windows
-        vcpkg install leptonica
         vcpkg install leptonica:x64-windows --head
     - name: Install Tesseract
       run: |
-        vcpkg install tesseract
         vcpkg install tesseract:x64-windows --head
     - name: Check installation
       run: |
@@ -46,3 +45,5 @@ jobs:
         go test -v -cover ./...
       env:
         INCLUDE: C:\vcpkg\installed\x64-windows\include
+        LIB: C:\vcpkg\installed\x64-windows\lib
+        PATH: ${{ runner.path }};C:\vcpkg\installed\x64-windows\bin
