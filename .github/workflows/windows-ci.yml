@@ -39,6 +39,7 @@ jobs:
       run: |
         dir C:\vcpkg\installed\x64-windows\include
         dir C:\vcpkg\installed\x64-windows\lib
+        dir C:\vcpkg\installed\x64-windows\include\leptonica
     # - name: Env Check
     #   run: Get-ChildItem Env:
     - name: Test Gosseract
