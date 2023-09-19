@@ -29,6 +29,13 @@ jobs:
     - name: Add MinGW to PATH
       run: echo "C:\ProgramData\chocolatey\lib\mingw\tools\install\mingw64\bin" >> $GITHUB_PATH
       shell: bash
+    - name: Cache vcpkg dependencies
+      uses: actions/cache@v3
+      with:
+        path: C:\vcpkg\installed
+        key: vcpkg-${{ runner.os }}-${{ hashFiles('**/vcpkg.json') }}
+        restore-keys: |
+          vcpkg-${{ runner.os }}-
     - name: Vcpkg setup
       run: vcpkg integrate install
     - name: Install Leptonica
