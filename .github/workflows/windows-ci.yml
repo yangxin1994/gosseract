@@ -44,7 +44,7 @@ jobs:
     #   run: Get-ChildItem Env:
     - name: Test Gosseract
       run: |
-        go test -v -cover ./...
+        CGO_CFLAGS="-I${INCLUDE}" CGO_LDFLAGS="-L${LIB}" go test -x -v -cover ./...
       env:
         INCLUDE: C:\vcpkg\installed\x64-windows\include
         LIB: C:\vcpkg\installed\x64-windows\lib
